@@ -31,6 +31,10 @@ const txtDrawdown = document.getElementById('txt-drawdown');
 const strategySignal = document.getElementById('strategy-signal');
 const strategyDesc = document.getElementById('strategy-desc');
 
+const txtStratPrice1 = document.getElementById('txt-strat-price-1');
+const txtStratPrice2 = document.getElementById('txt-strat-price-2');
+const txtStratPrice3 = document.getElementById('txt-strat-price-3');
+
 // 3. 核心計算函式
 function calculate() {
   // A. 讀取並轉換輸入值
@@ -81,6 +85,24 @@ function calculate() {
     drawdown = ((high - price) / high) * 100;
   }
   txtDrawdown.textContent = drawdown.toFixed(2);
+
+  // F. 更新策略板塊中累計回檔對應的動態價格
+  if (high > 0) {
+    const p3 = (high * 0.97).toFixed(1);
+    const p5 = (high * 0.95).toFixed(1);
+    const p8 = (high * 0.92).toFixed(1);
+    const p10 = (high * 0.90).toFixed(1);
+    const p15 = (high * 0.85).toFixed(1);
+    const p20 = (high * 0.80).toFixed(1);
+
+    txtStratPrice1.textContent = `${p3} ~ ${p5}`;
+    txtStratPrice2.textContent = `${p8} ~ ${p10}`;
+    txtStratPrice3.textContent = `${p15} ~ ${p20}`;
+  } else {
+    txtStratPrice1.textContent = '--';
+    txtStratPrice2.textContent = '--';
+    txtStratPrice3.textContent = '--';
+  }
 
   updateStrategySignal(drawdown);
 }
