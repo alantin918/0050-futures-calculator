@@ -35,6 +35,18 @@ const txtStratPrice1 = document.getElementById('txt-strat-price-1');
 const txtStratPrice2 = document.getElementById('txt-strat-price-2');
 const txtStratPrice3 = document.getElementById('txt-strat-price-3');
 
+const txtStratTp1 = document.getElementById('txt-strat-tp-1');
+const txtStratTp2 = document.getElementById('txt-strat-tp-2');
+const txtStratTp3 = document.getElementById('txt-strat-tp-3');
+const txtStratTp4 = document.getElementById('txt-strat-tp-4');
+const txtStratTp5 = document.getElementById('txt-strat-tp-5');
+
+const txtStratProfit1 = document.getElementById('txt-strat-profit-1');
+const txtStratProfit2 = document.getElementById('txt-strat-profit-2');
+const txtStratProfit3 = document.getElementById('txt-strat-profit-3');
+const txtStratProfit4 = document.getElementById('txt-strat-profit-4');
+const txtStratProfit5 = document.getElementById('txt-strat-profit-5');
+
 // 3. 核心計算函式
 function calculate() {
   // A. 讀取並轉換輸入值
@@ -102,6 +114,54 @@ function calculate() {
     txtStratPrice1.textContent = '--';
     txtStratPrice2.textContent = '--';
     txtStratPrice3.textContent = '--';
+  }
+
+  // G. 更新這 5 個策略項目的動態建議停利價與利潤新台幣
+  if (price > 0) {
+    // 策略 1 (回檔 3%~5%, 賺 2%~3%)
+    const tp1_l = (price * 1.02).toFixed(1);
+    const tp1_h = (price * 1.03).toFixed(1);
+    const prof1_l = Math.round(price * 0.02 * CONTRACT_MULTIPLIER);
+    const prof1_h = Math.round(price * 0.03 * CONTRACT_MULTIPLIER);
+    txtStratTp1.textContent = `${tp1_l} ~ ${tp1_h}`;
+    txtStratProfit1.textContent = `${prof1_l.toLocaleString('zh-TW')} ~ ${prof1_h.toLocaleString('zh-TW')}`;
+
+    // 策略 2 (回檔 8%~10%, 賺 6%~8%)
+    const tp2_l = (price * 1.06).toFixed(1);
+    const tp2_h = (price * 1.08).toFixed(1);
+    const prof2_l = Math.round(price * 0.06 * CONTRACT_MULTIPLIER);
+    const prof2_h = Math.round(price * 0.08 * CONTRACT_MULTIPLIER);
+    txtStratTp2.textContent = `${tp2_l} ~ ${tp2_h}`;
+    txtStratProfit2.textContent = `${prof2_l.toLocaleString('zh-TW')} ~ ${prof2_h.toLocaleString('zh-TW')}`;
+
+    // 策略 3 (回檔 15%~20%, 賺 10%~15%)
+    const tp3_l = (price * 1.10).toFixed(1);
+    const tp3_h = (price * 1.15).toFixed(1);
+    const prof3_l = Math.round(price * 0.10 * CONTRACT_MULTIPLIER);
+    const prof3_h = Math.round(price * 0.15 * CONTRACT_MULTIPLIER);
+    txtStratTp3.textContent = `${tp3_l} ~ ${tp3_h}`;
+    txtStratProfit3.textContent = `${prof3_l.toLocaleString('zh-TW')} ~ ${prof3_h.toLocaleString('zh-TW')}`;
+
+    // 策略 4 (單日跌 1.5%~2%, 賺 1.0%~1.5%)
+    const tp4_l = (price * 1.01).toFixed(1);
+    const tp4_h = (price * 1.015).toFixed(1);
+    const prof4_l = Math.round(price * 0.01 * CONTRACT_MULTIPLIER);
+    const prof4_h = Math.round(price * 0.015 * CONTRACT_MULTIPLIER);
+    txtStratTp4.textContent = `${tp4_l} ~ ${tp4_h}`;
+    txtStratProfit4.textContent = `${prof4_l.toLocaleString('zh-TW')} ~ ${prof4_h.toLocaleString('zh-TW')}`;
+
+    // 策略 5 (單日跌 3%以上, 賺 1.5%~2.0%)
+    const tp5_l = (price * 1.015).toFixed(1);
+    const tp5_h = (price * 1.02).toFixed(1);
+    const prof5_l = Math.round(price * 0.015 * CONTRACT_MULTIPLIER);
+    const prof5_h = Math.round(price * 0.02 * CONTRACT_MULTIPLIER);
+    txtStratTp5.textContent = `${tp5_l} ~ ${tp5_h}`;
+    txtStratProfit5.textContent = `${prof5_l.toLocaleString('zh-TW')} ~ ${prof5_h.toLocaleString('zh-TW')}`;
+  } else {
+    for (let i = 1; i <= 5; i++) {
+      document.getElementById(`txt-strat-tp-${i}`).textContent = '--';
+      document.getElementById(`txt-strat-profit-${i}`).textContent = '--';
+    }
   }
 
   updateStrategySignal(drawdown);
