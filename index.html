@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小型0050期貨 (SRFN6) 智慧風控與策略計算器</title>
+  <!-- Google Fonts Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="glow-container">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+  </div>
+
+  <main class="app-container">
+    <header class="app-header">
+      <div class="logo-area">
+        <span class="icon">📈</span>
+        <h1>小型0050期貨 <span class="badge">SRFN6</span></h1>
+      </div>
+      <p class="subtitle">智慧型風控保證金與波段策略試算平台</p>
+    </header>
+
+    <div class="grid-layout">
+      <!-- 左側：參數配置卡片 -->
+      <section class="card param-card">
+        <h2 class="card-title">⚙️ 參數設定區</h2>
+        
+        <div class="input-group">
+          <label for="input-deposit">💰 存入本金 (新台幣元)</label>
+          <input type="number" id="input-deposit" value="25000" min="7900" step="500">
+          <span class="input-hint">最低原始保證金要求為 7,900 元</span>
+        </div>
+
+        <div class="input-group">
+          <label for="input-price">🏷️ 買進價格 / 當前股價 (元)</label>
+          <div class="input-with-btn">
+            <input type="number" id="input-price" value="107.7" min="10" step="0.1">
+            <button type="button" id="btn-fetch-price" class="btn-primary">⚡️ 聯網同步</button>
+          </div>
+          <span class="input-hint">可手動輸入或點擊按鈕自動抓取最新 0050 股價</span>
+        </div>
+
+        <div class="input-group">
+          <label for="input-high">🏔️ 近期波段最高點 (元)</label>
+          <input type="number" id="input-high" value="112.3" min="10" step="0.1">
+          <span class="input-hint">用於計算目前累計回檔幅度 (波段折返)</span>
+        </div>
+
+        <div class="info-box">
+          <div class="info-row">
+            <span>標的合約</span>
+            <strong>元大台灣50 ETF (0050)</strong>
+          </div>
+          <div class="info-row">
+            <span>契約乘數</span>
+            <strong>1,000 倍 (每口代表 1 張現股)</strong>
+          </div>
+          <div class="info-row">
+            <span>原始保證金</span>
+            <strong class="color-primary">7,900 元</strong>
+          </div>
+          <div class="info-row">
+            <span>維持保證金</span>
+            <strong class="color-warning">6,100 元</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- 右側：智慧風控與策略結果 -->
+      <div class="result-layout">
+        <!-- 策略燈號卡片 -->
+        <section class="card strategy-card">
+          <div class="strategy-header">
+            <h2 class="card-title">🎯 波段操作建議</h2>
+            <div id="strategy-signal" class="signal-tag signal-yellow">試單觀察</div>
+          </div>
+          
+          <div class="drawdown-display">
+            <span>近期高點回檔幅度</span>
+            <div class="drawdown-value"><span id="txt-drawdown">4.01</span>%</div>
+          </div>
+
+          <div id="strategy-desc" class="strategy-desc">
+            目前股價已從高點回檔約 4%，屬於輕度調整。若您想參與，此時適合以小額資金建立底倉，但不建議一次押滿。
+          </div>
+        </section>
+
+        <!-- 風控儀表板卡片 -->
+        <section class="card risk-card">
+          <h2 class="card-title">🛡️ 智慧風控儀表板</h2>
+
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span class="stat-label">合約價值 (1口)</span>
+              <span class="stat-val" id="txt-contract-val">107,700 元</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">實際財務槓桿</span>
+              <span class="stat-val" id="txt-leverage">4.31 倍</span>
+            </div>
+          </div>
+
+          <!-- 追繳防線 -->
+          <div class="safety-line-container">
+            <div class="line-header">
+              <span class="line-title color-warning">⚠️ 盤中追繳防線 (維持保證金 6,100 元)</span>
+              <span class="line-status" id="txt-margin-call-pct">-17.55%</span>
+            </div>
+            <div class="line-progress-bg">
+              <div class="line-progress progress-warning" id="progress-margin-call" style="width: 82.45%"></div>
+            </div>
+            <div class="line-footer">
+              <span>0050 跌至 <strong id="txt-margin-call-price">88.80</strong> 元</span>
+              <span>容許再跌 <strong class="color-warning" id="txt-margin-call-diff">18.90</strong> 元</span>
+            </div>
+          </div>
+
+          <!-- 斷頭防線 -->
+          <div class="safety-line-container">
+            <div class="line-header">
+              <span class="line-title color-danger">💥 盤中斷頭防線 (風險指標低於 25%)</span>
+              <span class="line-status" id="txt-liquidation-pct">-21.37%</span>
+            </div>
+            <div class="line-progress-bg">
+              <div class="line-progress progress-danger" id="progress-liquidation" style="width: 78.63%"></div>
+            </div>
+            <div class="line-footer">
+              <span>0050 跌至 <strong id="txt-liquidation-price">84.68</strong> 元</span>
+              <span>容許再跌 <strong class="color-danger" id="txt-liquidation-diff">23.02</strong> 元</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 警語小卡 -->
+        <p class="disclaimer">
+          ⚠️ 警語：期貨交易具高槓桿風險，保證金試算僅供策略參考，實際交易時請隨時關注期貨商帳戶之權益數與風險指標變動，理性投資，量力而為。
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
