@@ -358,6 +358,14 @@ body {
   color: var(--text-primary);
 }
 
+.pct-sign {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-left: 2px;
+  vertical-align: baseline;
+}
+
 .strategy-desc {
   font-size: 0.92rem;
   line-height: 1.6;
