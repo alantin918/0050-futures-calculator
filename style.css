@@ -504,3 +504,111 @@ body {
     margin-bottom: 20px;
   }
 }
+
+/* ==========================================
+   📊 策略分析板塊專屬樣式
+   ========================================== */
+.analysis-board-card {
+  margin-top: 32px;
+  border-top: 3px solid var(--primary-color);
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+.analysis-column h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.column-intro {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* 策略項目卡片 */
+.strategy-item {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 18px;
+  border-left: 4px solid transparent;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.strategy-item:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.strategy-item h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.strategy-item p {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.win-rate {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  background: rgba(0, 242, 254, 0.1);
+  padding: 2px 10px;
+  border-radius: 12px;
+}
+
+/* 各類徽章 (Badge) */
+.badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.badge-yellow { background: var(--warning-glow); color: var(--warning-color); border: 1px solid rgba(255, 183, 3, 0.3); }
+.badge-green { background: var(--success-glow); color: var(--success-color); border: 1px solid rgba(0, 245, 212, 0.3); }
+.badge-blue { background: var(--primary-glow); color: var(--primary-color); border: 1px solid rgba(0, 242, 254, 0.3); }
+.badge-purple { background: var(--purple-glow); color: #d8b4fe; border: 1px solid rgba(157, 78, 221, 0.4); }
+
+/* 各種邊框發光 hover 效果 */
+.border-yellow { border-left-color: var(--warning-color); }
+.border-yellow:hover { box-shadow: 0 4px 20px rgba(255, 183, 3, 0.08); }
+
+.border-green { border-left-color: var(--success-color); }
+.border-green:hover { box-shadow: 0 4px 20px rgba(0, 245, 212, 0.08); }
+
+.border-blue { border-left-color: var(--primary-color); }
+.border-blue:hover { box-shadow: 0 4px 20px rgba(0, 242, 254, 0.08); }
+
+.border-purple { border-left-color: var(--purple-color); }
+.border-purple:hover { box-shadow: 0 4px 20px rgba(157, 78, 221, 0.12); }
+
+/* 策略卡片 RWD */
+@media (max-width: 850px) {
+  .analysis-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
