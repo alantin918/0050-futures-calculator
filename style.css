@@ -639,3 +639,116 @@ body {
 .detail-row strong {
   color: var(--text-primary);
 }
+
+/* ==========================================
+   🔍 合約比較板塊專屬樣式
+   ========================================== */
+.contract-comparison-card {
+  margin-top: 32px;
+  border-top: 3px solid var(--warning-color);
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 36px;
+}
+
+.comparison-box h3, .guide-box h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+/* 高雅表格 */
+.table-container {
+  overflow-x: auto;
+}
+
+.premium-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.premium-table th {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 12px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+}
+
+.premium-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+}
+
+.premium-table tr:hover {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.premium-table td strong {
+  color: var(--text-primary);
+}
+
+.highlight-cell {
+  color: var(--primary-color) !important;
+  font-weight: 600;
+  background: rgba(0, 242, 254, 0.02);
+}
+
+/* 實戰指南 */
+.guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.guide-item {
+  display: flex;
+  gap: 16px;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  border-radius: 10px;
+  border-left: 3px solid var(--primary-color);
+}
+
+.guide-item:last-child {
+  border-left-color: var(--warning-color);
+  background: rgba(255, 183, 3, 0.03);
+}
+
+.guide-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.15);
+  line-height: 1;
+}
+
+.guide-item strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.guide-item p {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* RWD */
+@media (max-width: 850px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
