@@ -161,10 +161,34 @@ function calculate() {
     for (let i = 1; i <= 5; i++) {
       document.getElementById(`txt-strat-tp-${i}`).textContent = '--';
       document.getElementById(`txt-strat-profit-${i}`).textContent = '--';
+    }
   }
 
   updateStrategySignal(drawdown);
   updateDynamicStrategyTables(price, high);
+}
+
+// 4. 更新操作燈號與描述
+function updateStrategySignal(drawdown) {
+  // 重置燈號類別
+  strategySignal.className = 'signal-tag';
+
+  if (drawdown < 4.5) {
+    // 輕度回檔
+    strategySignal.classList.add('signal-yellow');
+    strategySignal.textContent = '試單觀察';
+    strategyDesc.innerHTML = `目前股價已從近期高點回檔約 <b>${drawdown.toFixed(2)}%</b>，屬於輕度修正。此時適合以小額資金進行<strong>底倉試單</strong>（如建立 1 口部位），不建議一次將部位買滿，保留資金防守。`;
+  } else if (drawdown >= 4.5 && drawdown < 7.5) {
+    // 中度回檔第一防線 (約 5% 季線)
+    strategySignal.classList.add('signal-green');
+    strategySignal.textContent = '季線支撐 (分批買)';
+    strategyDesc.innerHTML = `目前股價累計回檔已達 <b>${drawdown.toFixed(2)}%</b>，已逼近或進入<strong>季線 (60MA) 防守支撐區</strong>。此處多頭抵抗力道強，勝率與性價比佳，適合在此建立約 <b>1/2 的波段多單</b>。`;
+  } else {
+    // 中度回檔第二防線 (約 8%~10% 或以上 年線)
+    strategySignal.classList.add('signal-blue');
+    strategySignal.textContent = '年線大買點 (重倉加碼)';
+    strategyDesc.innerHTML = `目前股價累計深幅回檔達 <b>${drawdown.toFixed(2)}%</b>，已強勢下修至<strong>年線 (240MA) 附近大支撐</strong>。歷史回測此位階進場之長期勝率超過 <b>85%</b>。帳戶安全邊際極高，是優質的波段重倉加碼與布局機會！`;
+  }
 }
 
 // 4.5 更新原生 20 萬雙軌加碼與壓力測試動態表
@@ -229,29 +253,6 @@ function updateDynamicStrategyTables(price, high) {
   if (elStressReboundVal) elStressReboundVal.textContent = `${Math.round(reboundValue).toLocaleString('zh-TW')} 元`;
 }
 
-// 4. 更新操作燈號與描述
-function updateStrategySignal(drawdown) {
-  // 重置燈號類別
-  strategySignal.className = 'signal-tag';
-
-  if (drawdown < 4.5) {
-    // 輕度回檔
-    strategySignal.classList.add('signal-yellow');
-    strategySignal.textContent = '試單觀察';
-    strategyDesc.innerHTML = `目前股價已從近期高點回檔約 <b>${drawdown.toFixed(2)}%</b>，屬於輕度修正。此時適合以小額資金進行<strong>底倉試單</strong>（如建立 1 口部位），不建議一次將部位買滿，保留資金防守。`;
-  } else if (drawdown >= 4.5 && drawdown < 7.5) {
-    // 中度回檔第一防線 (約 5% 季線)
-    strategySignal.classList.add('signal-green');
-    strategySignal.textContent = '季線支撐 (分批買)';
-    strategyDesc.innerHTML = `目前股價累計回檔已達 <b>${drawdown.toFixed(2)}%</b>，已逼近或進入<strong>季線 (60MA) 防守支撐區</strong>。此處多頭抵抗力道強，勝率與性價比佳，適合在此建立約 <b>1/2 的波段多單</b>。`;
-  } else {
-    // 中度回檔第二防線 (約 8%~10% 或以上 年線)
-    strategySignal.classList.add('signal-blue');
-    strategySignal.textContent = '年線大買點 (重倉加碼)';
-    strategyDesc.innerHTML = `目前股價累計深幅回檔達 <b>${drawdown.toFixed(2)}%</b>，已強勢下修至<strong>年線 (240MA) 附近大支撐</strong>。歷史回測此位階進場之長期勝率超過 <b>85%</b>。帳戶安全邊際極高，是優質的波段重倉加碼與布局機會！`;
-  }
-}
-
 // 5. 事件監聽 (雙向綁定)
 [inputDeposit, inputPrice, inputHigh].forEach(input => {
   ['input', 'change', 'keyup'].forEach(evt => {
@@ -265,7 +266,6 @@ btnFetchPrice.addEventListener('click', async () => {
   btnFetchPrice.textContent = '🔄 同步中...';
 
   try {
-    // 1. 嘗試由 Yahoo Finance 公開 API 抓取即時數據 (這在瀏覽器端通常能順利 CORS 存取)
     const res = await fetch('https://query1.finance.yahoo.com/v8/finance/chart/0050.TW');
     if (!res.ok) throw new Error('CORS or HTTP Error');
     
@@ -275,8 +275,6 @@ btnFetchPrice.addEventListener('click', async () => {
     
     if (livePrice && livePrice > 0) {
       inputPrice.value = livePrice.toFixed(2);
-      
-      // 提示成功
       btnFetchPrice.textContent = '✅ 同步成功';
       calculate();
     } else {
@@ -284,13 +282,10 @@ btnFetchPrice.addEventListener('click', async () => {
     }
   } catch (err) {
     console.warn('⚡️ 瀏覽器直連受限，啟用備用智慧盤口模擬...', err.message);
-    // 2. 備用方案：模擬真實行情波動 (模擬連網獲取，範圍約在 107.5 ~ 109.8 之間)
     const mockPrice = (107.5 + Math.random() * 2.3).toFixed(2);
     inputPrice.value = mockPrice;
-    
     btnFetchPrice.textContent = '⚡️ 估算盤口同步';
     calculate();
-    
     alert('💡 提示：已為您自動同步最新估算盤口。如需實時真實價格，亦可參考台灣證券交易所報價並手動輸入！');
   } finally {
     setTimeout(() => {
