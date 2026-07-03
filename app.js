@@ -254,7 +254,9 @@ function updateStrategySignal(drawdown) {
 
 // 5. 事件監聽 (雙向綁定)
 [inputDeposit, inputPrice, inputHigh].forEach(input => {
-  input.addEventListener('input', calculate);
+  ['input', 'change', 'keyup'].forEach(evt => {
+    input.addEventListener(evt, calculate);
+  });
 });
 
 // 聯網同步最新股價
