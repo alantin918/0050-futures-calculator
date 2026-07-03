@@ -785,3 +785,190 @@ body {
     gap: 28px;
   }
 }
+
+/* ==========================================
+   🎯 6. 全新：實戰策略指南雙卡片原生展示區樣式
+   ========================================== */
+.strategy-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.strategy-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.strategy-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 12px;
+}
+
+.strategy-card-header .card-header-icon {
+  font-size: 1.8rem;
+}
+
+.strategy-intro-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+/* 策略動態表格樣式 */
+.strategy-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.strategy-table th {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 12px 10px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+}
+
+.strategy-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+}
+
+.strategy-table tr:hover {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.strategy-table .highlight-row {
+  background: rgba(0, 242, 254, 0.04);
+  border-left: 3px solid var(--primary-color);
+}
+
+.dynamic-val {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.highlight-text {
+  color: var(--warning-color) !important;
+  font-weight: 600;
+}
+
+/* 策略備註卡 */
+.strategy-notes {
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.note-item {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* 壓力測試區樣式 */
+.stress-test-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.stress-metric {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stress-metric .label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.stress-metric .value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.danger-text {
+  color: var(--danger-color) !important;
+}
+
+.success-text {
+  color: var(--success-color) !important;
+}
+
+.stress-rules {
+  background: rgba(255, 51, 102, 0.02);
+  border: 1px solid rgba(255, 51, 102, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.stress-rules h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--danger-color);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stress-rules ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stress-rules li {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  position: relative;
+  padding-left: 14px;
+}
+
+.stress-rules li::before {
+  content: "•";
+  color: var(--danger-color);
+  position: absolute;
+  left: 0;
+  font-weight: 800;
+}
+
+/* 網頁平滑滾動與定位間距 */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
+}

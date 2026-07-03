@@ -24,8 +24,8 @@
       </div>
       <p class="subtitle">智慧型風控保證金與波段策略試算平台</p>
       <div class="header-strategy-links">
-        <a href="https://github.com/alantin918/0050-futures-calculator/blob/main/0050_odd_lot_strategy.md" target="_blank" class="strategy-link-btn">🎯 20萬零股建倉規劃書</a>
-        <a href="https://github.com/alantin918/0050-futures-calculator/blob/main/0050_crash_30pct_stress_test.md" target="_blank" class="strategy-link-btn">🌋 -30%地獄壓力測試書</a>
+        <a href="#card-odd-lot-strategy" class="strategy-link-btn">🎯 20萬零股建倉規劃書</a>
+        <a href="#card-stress-test" class="strategy-link-btn">🌋 -30%地獄壓力測試書</a>
       </div>
     </header>
 
@@ -355,6 +355,165 @@
                 <p>對於您的 25,000 元資金配置，<strong>「唯一推薦交易小型 0050 期貨 (SRF)」</strong>。因為大合約 (NYF) 原始保證金要 7.9 萬，您的資金根本無法建立部位；而小合約 (SRF) 讓您能以極佳的風險緩衝空間（2.5 萬本金）安全操作，甚至未來資金增加後，還能實踐分批加碼！</p>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 全新：實戰策略指南雙卡片原生展示區 -->
+    <section class="strategy-section">
+      <!-- 1. 20萬實戰規劃書卡片 -->
+      <div class="card strategy-card" id="card-odd-lot-strategy">
+        <div class="strategy-card-header">
+          <div class="card-header-icon">🎯</div>
+          <h2 class="card-title">20萬現金 ➔ 0050 實戰建倉規劃書 (30%積極買 / 70%便宜買)</h2>
+        </div>
+        <p class="strategy-intro-desc">
+          本規劃將 <b>20 萬元</b> 老本資金，拆分為 <b>30% (6萬) 積極底倉</b>（明日開盤直接買入 550 股，防止空手踏空）與 <b>70% (14萬) 金字塔加碼倉</b>（直達 -30% 股災防線）。
+        </p>
+
+        <div class="table-responsive">
+          <table class="strategy-table">
+            <thead>
+              <tr>
+                <th>步驟與時機</th>
+                <th>回檔幅度</th>
+                <th>🎯 買進觸發價</th>
+                <th>📦 買進股數</th>
+                <th>💵 當筆花費</th>
+                <th>📈 累計已投入</th>
+                <th>💰 帳戶剩餘現金</th>
+                <th>總股數累計 (含原265股)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight-row">
+                <td><b>Step 1. 積極建倉 (明天)</b></td>
+                <td>-3.1%</td>
+                <td><span id="p-price-1" class="dynamic-val">--</span> 元</td>
+                <td>550 股</td>
+                <td><span id="p-cost-1">--</span> 元</td>
+                <td><span id="p-total-1">--</span> 元</td>
+                <td><span id="p-cash-1">--</span> 元</td>
+                <td>815 股</td>
+              </tr>
+              <tr>
+                <td><b>Step 2. 一級加碼 (季線)</b></td>
+                <td>-5.0%</td>
+                <td><span id="p-price-2" class="dynamic-val">--</span> 元</td>
+                <td>150 股</td>
+                <td><span id="p-cost-2">--</span> 元</td>
+                <td><span id="p-total-2">--</span> 元</td>
+                <td><span id="p-cash-2">--</span> 元</td>
+                <td>965 股</td>
+              </tr>
+              <tr>
+                <td><b>Step 3. 二級加碼 (波段)</b></td>
+                <td>-8.0%</td>
+                <td><span id="p-price-3" class="dynamic-val">--</span> 元</td>
+                <td>180 股</td>
+                <td><span id="p-cost-3">--</span> 元</td>
+                <td><span id="p-total-3">--</span> 元</td>
+                <td><span id="p-cash-3">--</span> 元</td>
+                <td><b class="highlight-text">1,145 股 (滿1張)</b></td>
+              </tr>
+              <tr>
+                <td><b>Step 4. 三級加碼 (年線)</b></td>
+                <td>-10.0%</td>
+                <td><span id="p-price-4" class="dynamic-val">--</span> 元</td>
+                <td>200 股</td>
+                <td><span id="p-cost-4">--</span> 元</td>
+                <td><span id="p-total-4">--</span> 元</td>
+                <td><span id="p-cash-4">--</span> 元</td>
+                <td>1,345 股</td>
+              </tr>
+              <tr>
+                <td><b>Step 5. 四級加碼 (輕災)</b></td>
+                <td>-15.0%</td>
+                <td><span id="p-price-5" class="dynamic-val">--</span> 元</td>
+                <td>220 股</td>
+                <td><span id="p-cost-5">--</span> 元</td>
+                <td><span id="p-total-5">--</span> 元</td>
+                <td><span id="p-cash-5">--</span> 元</td>
+                <td>1,565 股</td>
+              </tr>
+              <tr>
+                <td><b>Step 6. 五級加碼 (中災)</b></td>
+                <td>-20.0%</td>
+                <td><span id="p-price-6" class="dynamic-val">--</span> 元</td>
+                <td>240 股</td>
+                <td><span id="p-cost-6">--</span> 元</td>
+                <td><span id="p-total-6">--</span> 元</td>
+                <td><span id="p-cash-6">--</span> 元</td>
+                <td>1,805 股</td>
+              </tr>
+              <tr>
+                <td><b>Step 7. 六級加碼 (重災)</b></td>
+                <td>-25.0%</td>
+                <td><span id="p-price-7" class="dynamic-val">--</span> 元</td>
+                <td>260 股</td>
+                <td><span id="p-cost-7">--</span> 元</td>
+                <td><span id="p-total-7">--</span> 元</td>
+                <td><span id="p-cash-7">--</span> 元</td>
+                <td><b class="highlight-text">2,065 股 (滿2張)</b></td>
+              </tr>
+              <tr>
+                <td><b>Step 8. 七級加碼 (極端)</b></td>
+                <td>-30.0%</td>
+                <td><span id="p-price-8" class="dynamic-val">--</span> 元</td>
+                <td>260 股</td>
+                <td><span id="p-cost-8">--</span> 元</td>
+                <td><span id="p-total-8">--</span> 元</td>
+                <td><span id="p-cash-8">--</span> 元</td>
+                <td>2,325 股</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="strategy-notes">
+          <div class="note-item">🛡️ <b>持股均價平攤</b>：若完全買滿這 8 個步驟，新加碼 2,060 股的均價將被拉低至 <span id="lbl-pyramid-avg-cost" class="highlight-text">--</span> 元！</div>
+          <div class="note-item">🚀 <b>獲利回升推演</b>：當股災過去並重回歷史高點（以近期最高點為準）時，新資金將實現 <span id="lbl-pyramid-profit" class="highlight-text">--</span> 元的淨獲利（報酬率達 <span id="lbl-pyramid-roi">--</span>）！</div>
+        </div>
+      </div>
+
+      <!-- 2. -30% 地獄級壓力測試卡片 -->
+      <div class="card strategy-card" id="card-stress-test">
+        <div class="strategy-card-header">
+          <div class="card-header-icon">🌋</div>
+          <h2 class="card-title">🌋 -30% 地獄級大股災壓力測試與防守規劃</h2>
+        </div>
+        <p class="strategy-intro-desc">
+          本測試專為 0050 遭遇百年一遇的全球系統性崩盤（跌幅 -30%）時，模擬您的本金防禦與最終持股價值。現股零股沒有時間到期壓力，下跌即是逢低分批撿鑽石的黃金起點！
+        </p>
+
+        <div class="stress-test-content">
+          <div class="stress-grid">
+            <div class="stress-metric">
+              <span class="label">-30% 底部股價</span>
+              <span class="value danger-text" id="lbl-stress-bottom-price">-- 元</span>
+            </div>
+            <div class="stress-metric">
+              <span class="label">新資金平均成本</span>
+              <span class="value" id="lbl-stress-avg-cost">-- 元</span>
+            </div>
+            <div class="stress-metric">
+              <span class="label">累計加碼持股</span>
+              <span class="value" id="lbl-stress-total-shares">2,060 股</span>
+            </div>
+            <div class="stress-metric">
+              <span class="label">重返高點總市值</span>
+              <span class="value success-text" id="lbl-stress-rebound-val">-- 元</span>
+            </div>
+          </div>
+
+          <div class="stress-rules">
+            <h3>🛡️ 地獄級股災的操盤手防守鐵律</h3>
+            <ul>
+              <li><b>現股零股絕不割肉</b>：現股沒有像期貨那樣的到期結算或強制平倉爆倉風險，帳面數字僅是浮虧，只要不賣，大盤反彈利潤即全數收回。</li>
+              <li><b>股利滾雪球</b>：當股價跌至底部時，配息殖利率將大幅飆升，領到的股利請繼續在低點買進零股，複利滾雪球！</li>
+              <li><b>鋼鐵紀律不猜底</b>：不要因為市場恐慌而暫停自動扣款或停止掛單，歷史回測大修正過後無一例外將重返新高。</li>
+            </ul>
           </div>
         </div>
       </div>

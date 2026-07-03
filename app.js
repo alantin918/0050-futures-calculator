@@ -161,10 +161,72 @@ function calculate() {
     for (let i = 1; i <= 5; i++) {
       document.getElementById(`txt-strat-tp-${i}`).textContent = '--';
       document.getElementById(`txt-strat-profit-${i}`).textContent = '--';
-    }
   }
 
   updateStrategySignal(drawdown);
+  updateDynamicStrategyTables(price, high);
+}
+
+// 4.5 更新原生 20 萬雙軌加碼與壓力測試動態表
+function updateDynamicStrategyTables(price, high) {
+  if (price <= 0 || high <= 0) return;
+
+  const steps = [
+    { shares: 550, getPrice: (p, h) => p },       // Step 1
+    { shares: 150, getPrice: (p, h) => h * 0.95 },  // Step 2
+    { shares: 180, getPrice: (p, h) => h * 0.92 },  // Step 3
+    { shares: 200, getPrice: (p, h) => h * 0.90 },  // Step 4
+    { shares: 220, getPrice: (p, h) => h * 0.85 },  // Step 5
+    { shares: 240, getPrice: (p, h) => h * 0.80 },  // Step 6
+    { shares: 260, getPrice: (p, h) => h * 0.75 },  // Step 7
+    { shares: 260, getPrice: (p, h) => h * 0.70 }   // Step 8
+  ];
+
+  let accumTotalCost = 0;
+  steps.forEach((step, index) => {
+    const idx = index + 1;
+    const stepPrice = step.getPrice(price, high);
+    const stepCost = step.shares * stepPrice;
+    accumTotalCost += stepCost;
+
+    const cashRemaining = Math.max(0, 200000 - accumTotalCost);
+
+    // 更新各步驟單元格
+    const elPrice = document.getElementById(`p-price-${idx}`);
+    const elCost = document.getElementById(`p-cost-${idx}`);
+    const elTotal = document.getElementById(`p-total-${idx}`);
+    const elCash = document.getElementById(`p-cash-${idx}`);
+
+    if (elPrice) elPrice.textContent = stepPrice.toFixed(2);
+    if (elCost) elCost.textContent = Math.round(stepCost).toLocaleString('zh-TW');
+    if (elTotal) elTotal.textContent = Math.round(accumTotalCost).toLocaleString('zh-TW');
+    if (elCash) elCash.textContent = Math.round(cashRemaining).toLocaleString('zh-TW');
+  });
+
+  // 計算加碼均價與利潤體檢
+  const newSharesBought = 2060; // 新加碼總股數 (550+150+180+200+220+240+260+260)
+  const avgCost = accumTotalCost / newSharesBought;
+  const bottomPrice = high * 0.70;
+  const reboundValue = newSharesBought * high;
+  const netProfit = reboundValue - accumTotalCost;
+  const roi = (netProfit / accumTotalCost) * 100;
+
+  // 更新體檢與壓力測試指標 DOM
+  const elPyramidAvgCost = document.getElementById('lbl-pyramid-avg-cost');
+  const elPyramidProfit = document.getElementById('lbl-pyramid-profit');
+  const elPyramidRoi = document.getElementById('lbl-pyramid-roi');
+  
+  const elStressBottomPrice = document.getElementById('lbl-stress-bottom-price');
+  const elStressAvgCost = document.getElementById('lbl-stress-avg-cost');
+  const elStressReboundVal = document.getElementById('lbl-stress-rebound-val');
+
+  if (elPyramidAvgCost) elPyramidAvgCost.textContent = avgCost.toFixed(2);
+  if (elPyramidProfit) elPyramidProfit.textContent = Math.round(netProfit).toLocaleString('zh-TW');
+  if (elPyramidRoi) elPyramidRoi.textContent = `+${roi.toFixed(2)}%`;
+
+  if (elStressBottomPrice) elStressBottomPrice.textContent = `${bottomPrice.toFixed(2)} 元`;
+  if (elStressAvgCost) elStressAvgCost.textContent = `${avgCost.toFixed(2)} 元`;
+  if (elStressReboundVal) elStressReboundVal.textContent = `${Math.round(reboundValue).toLocaleString('zh-TW')} 元`;
 }
 
 // 4. 更新操作燈號與描述
